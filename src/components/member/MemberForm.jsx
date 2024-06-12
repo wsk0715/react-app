@@ -2,11 +2,15 @@ import InputText from "../common/InputText";
 import ButtonSubmit from "../common/ButtonSubmit";
 import ButtonCancel from "../common/ButtonCancel";
 
-export default function MemberForm({ pageInfo, setMember }) {
+export default function MemberForm({ pageInfo }) {
 	const title = pageInfo.title;
 	const inputNames = pageInfo.inputNames;
 	const displayNames = pageInfo.displayNames;
 	const postfixes = pageInfo.postfixes;
+	const setters = pageInfo.setters;
+	const handleInputChange = pageInfo.handleInputChange;
+	const handleSubmit = pageInfo.handleSubmit;
+	const handleCancel = pageInfo.handleCancel;
 
 
 	return (
@@ -21,6 +25,7 @@ export default function MemberForm({ pageInfo, setMember }) {
 								inputName: inputName,
 								displayName: displayNames[index],
 								postfix: postfixes[index],
+								handleInputChange: handleInputChange(setters[index]),
 							}
 							return (
 								<InputText key={ index } inputInfo={ inputInfo } />
@@ -29,8 +34,8 @@ export default function MemberForm({ pageInfo, setMember }) {
 					}
 				</div>
 				<div>
-					<ButtonSubmit label={ "확인" } />
-					<ButtonCancel label={ "취소" } />
+					<ButtonSubmit label={ "확인" } action={ handleSubmit } />
+					<ButtonCancel label={ "취소" } action={ handleCancel } />
 				</div>
 			</div>
 		</div>
