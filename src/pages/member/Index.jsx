@@ -27,7 +27,7 @@ export default function Register() {
 				memberEmail,
 			}
 			try {
-				const response = await postRequest('/member/', member);
+				const response = await postRequest('/members', member);
 				if (response.result == true) {
 					alert('회원가입 성공!');
 					window.location.href = '/login';
