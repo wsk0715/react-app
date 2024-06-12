@@ -1,6 +1,7 @@
 import MemberForm from "../../components/member/MemberForm";
 import { useState } from "react";
 import { postRequest } from "../../utils/httpRequest";
+import InputForm from "../../components/common/InputForm";
 
 export default function Register() {
 	const [memberId, setMemberId] = useState('');
@@ -8,8 +9,9 @@ export default function Register() {
 	const [memberName, setMemberName] = useState('');
 	const [memberEmail, setMemberEmail] = useState('');
 
+	const title = '회원가입';
+
 	const pageInfo = {
-		title: '회원가입',
 		inputNames: ['memberId', 'memberPw', 'memberName', 'memberEmail'],
 		displayNames: ['아이디', '비밀번호', '이름', '이메일'],
 		postfixes: ['를', '를', '을', '을'],
@@ -45,6 +47,8 @@ export default function Register() {
 
 
 	return (
-		<MemberForm pageInfo={ pageInfo } />
+		<MemberForm title={ title }>
+			<InputForm pageInfo={ pageInfo } />
+		</MemberForm>
 	);
 }
