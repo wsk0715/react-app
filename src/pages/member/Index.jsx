@@ -27,7 +27,13 @@ export default function Register() {
 				memberEmail,
 			}
 			try {
-				await postRequest('/member/', member);
+				const response = await postRequest('/member/', member);
+				if (response.result == true) {
+					alert('회원가입 성공!');
+					window.location.href = '/login';
+				} else {
+					alert('회원가입에 실패했습니다. 다시 시도해주세요.')
+				}
 			} catch (e) {
 				console.log(e);
 			}
