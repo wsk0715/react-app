@@ -1,6 +1,7 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import LayoutDefault from "../components/layouts/Default";
 import Home from "../pages/home/Index";
+import Register from "../pages/member/Index";
 
 export default createBrowserRouter([
 	{
@@ -11,6 +12,7 @@ export default createBrowserRouter([
 		),
 		children: [
 			{ path: "/", element: <Home /> },
+			{ path: "/register", element: <Register /> },
 		],
 	},
 ]);
