@@ -13,7 +13,7 @@ export default function Header() {
 						<a href="/register" className="hover:text-gray-400">Register</a>
 					</li>
 					<li>
-						<a href="/members/admin" className="hover:text-gray-400">My Page</a>
+						<a href="/member/detail" className="hover:text-gray-400">My Page</a>
 					</li>
 				</ul>
 			</nav>
