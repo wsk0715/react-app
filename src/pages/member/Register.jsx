@@ -1,7 +1,7 @@
 import MemberForm from "../../components/member/MemberForm";
 import { useState } from "react";
 import { postRequest } from "../../utils/httpRequest";
-import InputText from "../../components/common/InputText";
+import InputText from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { useNavigate } from "react-router-dom";
 import { handleInputChange } from "../../utils/member/memberUtils";
@@ -52,6 +52,9 @@ export default function Register() {
 							placeholder: displayNames[i] + postfixes[i],
 							handleInputChange: handleInputChange(member, setMember, inputNames[i]),
 						};
+						if (inputName === 'memberPw') {
+							inputInfo['inputType'] = 'password';
+						}
 						return (
 							<InputText key={ i } inputInfo={ inputInfo } />
 						);

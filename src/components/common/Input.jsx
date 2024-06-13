@@ -1,10 +1,11 @@
-export default function InputText({ inputInfo }) {
+export default function Input({ inputInfo }) {
 	const inputName = inputInfo.inputName;
+	const inputType = inputInfo.inputType === undefined ? 'text' : inputInfo.inputType;
 	const displayName = inputInfo.displayName;
 	const placeholder = inputInfo.placeholder === undefined ? '' : inputInfo.placeholder + ' 입력해주세요.';
-	const handleInputChange = inputInfo.handleInputChange
+	const handleInputChange = inputInfo.handleInputChange;
 	const value = inputInfo.value;
-	const readOnly = inputInfo.readOnly;
+	const readOnly = inputInfo.readOnly === undefined ? false : inputInfo.readOnly;
 
 	let className =
 		'w-full max-w-96 ' +
@@ -19,7 +20,7 @@ export default function InputText({ inputInfo }) {
 		<div className="flex mb-4">
 			<label className="content-center w-1/4" htmlFor={ inputName }>{ displayName }</label>
 			<input name={ inputName }
-						 type="text"
+						 type={ inputType }
 						 className={ className }
 						 placeholder={ placeholder }
 						 value={ value }

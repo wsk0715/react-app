@@ -2,7 +2,7 @@ import MemberForm from "../../components/member/MemberForm";
 import { patchRequest } from "../../utils/httpRequest";
 import { useEffect, useState } from "react";
 import { handleInputChange, loadMemberInfo } from "../../utils/member/memberUtils";
-import InputText from "../../components/common/InputText";
+import InputText from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { useNavigate } from "react-router-dom";
 

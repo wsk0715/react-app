@@ -1,7 +1,7 @@
 import MemberForm from "../../components/member/MemberForm";
 import Button from "../../components/common/Button";
 import { handleInputChange } from "../../utils/member/memberUtils";
-import InputText from "../../components/common/InputText";
+import InputText from "../../components/common/Input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postRequest } from "../../utils/httpRequest";
@@ -54,6 +54,9 @@ export default function Login() {
 						placeholder: displayNames[i] + postfixes[i],
 						handleInputChange: handleInputChange(member, setMember, inputNames[i]),
 					};
+					if (inputName === 'memberPw') {
+						inputInfo['inputType'] = 'password';
+					}
 					return (
 						<InputText key={ i } inputInfo={ inputInfo } />
 					);

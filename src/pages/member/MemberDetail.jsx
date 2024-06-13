@@ -4,7 +4,7 @@ import { deleteRequest } from "../../utils/httpRequest";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadMemberInfo } from "../../utils/member/memberUtils";
-import InputText from "../../components/common/InputText";
+import InputText from "../../components/common/Input";
 
 
 const sessionMemberId = sessionStorage.getItem('memberId');
