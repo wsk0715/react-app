@@ -35,6 +35,7 @@ export default function MemberDetail() {
 					const response = await deleteRequest(`/members/${ sessionMemberId }`);
 					console.log(response);
 					if (response.result) {
+						sessionStorage.clear();
 						alert('회원 탈퇴가 완료되었습니다.');
 						window.location.href = '/';
 					} else {
