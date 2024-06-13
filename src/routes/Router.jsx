@@ -1,8 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import LayoutDefault from "../components/layouts/Default";
 import Home from "../pages/home/Index";
-import Register from "../pages/member/Register";
-import MemberDetail from "../pages/member/MemberDetail";
+import { MemberDetail, MemberModify, Register } from "../pages/member/Index";
 
 export default createBrowserRouter([
 	{
@@ -20,6 +19,7 @@ export default createBrowserRouter([
 
 			// member
 			{ path: "/member/detail", element: <MemberDetail /> },
+			{ path: "/member/modify", element: <MemberModify /> },
 		],
 	},
 ]);
