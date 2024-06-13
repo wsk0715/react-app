@@ -2,9 +2,9 @@ export default function Input({ inputInfo }) {
 	const inputName = inputInfo.inputName;
 	const inputType = inputInfo.inputType === undefined ? 'text' : inputInfo.inputType;
 	const displayName = inputInfo.displayName;
-	const placeholder = inputInfo.placeholder === undefined ? '' : inputInfo.placeholder + ' 입력해주세요.';
-	const handleInputChange = inputInfo.handleInputChange;
 	const value = inputInfo.value;
+	const handleInputChange = inputInfo.handleInputChange;
+	const placeholder = inputInfo.placeholder === undefined ? '' : inputInfo.placeholder + ' 입력해주세요.';
 	const readOnly = inputInfo.readOnly === undefined ? false : inputInfo.readOnly;
 
 	let className =
@@ -18,13 +18,15 @@ export default function Input({ inputInfo }) {
 
 	return (
 		<div className="flex mb-4">
-			<label className="content-center w-1/4" htmlFor={ inputName }>{ displayName }</label>
+			<label className="content-center w-1/4" htmlFor={ inputName }>
+				{ displayName }
+			</label>
 			<input name={ inputName }
 						 type={ inputType }
 						 className={ className }
-						 placeholder={ placeholder }
 						 value={ value }
 						 onChange={ handleInputChange }
+						 placeholder={ placeholder }
 						 readOnly={ readOnly }
 			/>
 		</div>

@@ -13,7 +13,10 @@ export default function Button({ type, label, action }) {
 
 
 	return (
-		<button onClick={ action } className={ className }>
+		<button type={ type }
+						className={ className }
+						onClick={ action }
+		>
 			{ label }
 		</button>
 	);

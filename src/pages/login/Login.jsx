@@ -20,7 +20,8 @@ export default function Login() {
 	})
 
 	const actions = {
-		handleSubmit: async function () {
+		handleSubmit: async function (event) {
+			event.preventDefault();
 			const response = await postRequest('/login', member);
 			console.log(response)
 			switch (response.result) {
@@ -46,26 +47,28 @@ export default function Login() {
 
 	return (
 		<MemberForm title={ title }>
-			{
-				inputNames.map((inputName, i) => {
-					const inputInfo = {
-						inputName: inputNames[i],
-						displayName: displayNames[i],
-						placeholder: displayNames[i] + postfixes[i],
-						handleInputChange: handleInputChange(member, setMember, inputNames[i]),
-					};
-					if (inputName === 'memberPw') {
-						inputInfo['inputType'] = 'password';
-					}
-					return (
-						<InputText key={ i } inputInfo={ inputInfo } />
-					);
-				})
-			}
-			<div>
-				<Button type={ "submit" } label={ "로그인" } action={ actions.handleSubmit } />
-				<Button type={ "button" } label={ "취소" } action={ actions.handleCancel } />
-			</div>
+			<form onSubmit={ actions.handleSubmit }>
+				{
+					inputNames.map((inputName, i) => {
+						const inputInfo = {
+							inputName: inputNames[i],
+							displayName: displayNames[i],
+							placeholder: displayNames[i] + postfixes[i],
+							handleInputChange: handleInputChange(member, setMember, inputNames[i]),
+						};
+						if (inputName === 'memberPw') {
+							inputInfo['inputType'] = 'password';
+						}
+						return (
+							<InputText key={ i } inputInfo={ inputInfo } />
+						);
+					})
+				}
+				<div>
+					<Button type={ "submit" } label={ "로그인" } />
+					<Button type={ "button" } label={ "취소" } action={ actions.handleCancel } />
+				</div>
+			</form>
 		</MemberForm>
 	);
 }

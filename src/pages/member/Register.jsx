@@ -22,7 +22,8 @@ export default function Register() {
 	})
 
 	const actions = {
-		handleSubmit: async function () {
+		handleSubmit: async function (event) {
+			event.preventDefault();
 			try {
 				const response = await postRequest('/members', member);
 				if (response.result) {
@@ -43,28 +44,30 @@ export default function Register() {
 
 	return (
 		<MemberForm title={ title }>
-			{
-				inputNames.map(
-					(inputName, i) => {
-						const inputInfo = {
-							inputName: inputNames[i],
-							displayName: displayNames[i],
-							placeholder: displayNames[i] + postfixes[i],
-							handleInputChange: handleInputChange(member, setMember, inputNames[i]),
-						};
-						if (inputName === 'memberPw') {
-							inputInfo['inputType'] = 'password';
+			<form onSubmit={ actions.handleSubmit }>
+				{
+					inputNames.map(
+						(inputName, i) => {
+							const inputInfo = {
+								inputName: inputNames[i],
+								displayName: displayNames[i],
+								placeholder: displayNames[i] + postfixes[i],
+								handleInputChange: handleInputChange(member, setMember, inputNames[i]),
+							};
+							if (inputName === 'memberPw') {
+								inputInfo['inputType'] = 'password';
+							}
+							return (
+								<InputText key={ i } inputInfo={ inputInfo } />
+							);
 						}
-						return (
-							<InputText key={ i } inputInfo={ inputInfo } />
-						);
-					}
-				)
-			}
-			<div>
-				<Button type={ "submit" } label={ "확인" } action={ actions.handleSubmit } />
-				<Button type={ "button" } label={ "취소" } action={ actions.handleCancel } />
-			</div>
+					)
+				}
+				<div>
+					<Button type={ "submit" } label={ "확인" } />
+					<Button type={ "button" } label={ "취소" } action={ actions.handleCancel } />
+				</div>
+			</form>
 		</MemberForm>
 	);
 }

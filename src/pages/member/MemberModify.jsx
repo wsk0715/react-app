@@ -27,7 +27,8 @@ export default function MemberModify() {
 	}, [sessionMemberId]);/**/
 
 	const actions = {
-		handleSubmit: async function () {
+		handleSubmit: async function (event) {
+			event.preventDefault();
 			try {
 				const response = await patchRequest(`/members/${ sessionMemberId }`, member);
 				console.log(response);
@@ -50,28 +51,30 @@ export default function MemberModify() {
 
 	return (
 		<MemberForm title={ title }>
-			{
-				inputNames.map(
-					(inputName, i) => {
-						const inputInfo = {
-							displayName: displayNames[i],
-							postfix: postfixes[i],
-							handleInputChange: handleInputChange(member, setMember, inputNames[i]),
-							value: member[inputNames[i]],
+			<form onSubmit={ actions.handleSubmit }>
+				{
+					inputNames.map(
+						(inputName, i) => {
+							const inputInfo = {
+								displayName: displayNames[i],
+								postfix: postfixes[i],
+								handleInputChange: handleInputChange(member, setMember, inputNames[i]),
+								value: member[inputNames[i]],
+							}
+							if (inputNames[i] == 'memberId') {
+								inputInfo['readOnly'] = true;
+							}
+							return (
+								<InputText key={ i } inputInfo={ inputInfo } />
+							);
 						}
-						if (inputNames[i] == 'memberId') {
-							inputInfo['readOnly'] = true;
-						}
-						return (
-							<InputText key={ i } inputInfo={ inputInfo } />
-						);
-					}
-				)
-			}
-			<div>
-				<Button type={ "submit" } label={ "확인" } action={ actions.handleSubmit } />
-				<Button type={ "button" } label={ "취소" } action={ actions.handleCancel } />
-			</div>
+					)
+				}
+				<div>
+					<Button type={ "submit" } label={ "확인" } />
+					<Button type={ "button" } label={ "취소" } action={ actions.handleCancel } />
+				</div>
+			</form>
 		</MemberForm>
 	);
 }
