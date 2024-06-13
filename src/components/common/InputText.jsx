@@ -1,7 +1,7 @@
 export default function InputText({ inputInfo }) {
 	const inputName = inputInfo.inputName;
 	const displayName = inputInfo.displayName;
-	const placeholder = displayName + inputInfo.postfix;
+	const placeholder = inputInfo.placeholder;
 	const handleInputChange = inputInfo.handleInputChange
 	const value = inputInfo.value;
 	const readOnly = inputInfo.readOnly;
@@ -17,7 +17,7 @@ export default function InputText({ inputInfo }) {
 
 	return (
 		<div className="flex mb-4">
-			<label className="content-center w-1/4" htmlFor="inputName">{ displayName }</label>
+			<label className="content-center w-1/4" htmlFor={ inputName }>{ displayName }</label>
 			<input name={ inputName }
 						 type="text"
 						 className={ className }

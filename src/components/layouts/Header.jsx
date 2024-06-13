@@ -1,4 +1,4 @@
-export default function Header() {
+export default function LayoutHeader() {
 	return (
 		<header className="flex items-center justify-between
 											 w-full h-24

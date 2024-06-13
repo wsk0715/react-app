@@ -1,16 +1,16 @@
-import LayoutHeader from './Header';
-import LayoutFooter from './Footer';
+import Header from './Header';
+import Footer from './Footer';
 
 export default function LayoutDefault({ children }) {
 	return (
-		<div className="flex flex-col min-h-screen ">
-			<LayoutHeader />
-			<div className="flex flex-grow">
-				<div className="flex-grow mx-8 p-8 bg-gray-50">
+		<div id="body" className="flex flex-col min-h-screen ">
+			<Header />
+			<main className="flex flex-grow">
+				<section className="flex-grow mx-8 p-8 bg-gray-50">
 					{ children }
-				</div>
-			</div>
-			<LayoutFooter />
+				</section>
+			</main>
+			<Footer />
 		</div>
 	);
 }

@@ -1,10 +1,10 @@
 import MemberForm from "../../components/member/MemberForm";
-import ButtonSubmit from "../../components/common/ButtonSubmit";
-import ButtonCancel from "../../components/common/ButtonCancel";
 import { patchRequest } from "../../utils/httpRequest";
 import { useEffect, useState } from "react";
-import { getMemberInfo } from "../../utils/member/memberUtils";
+import { handleInputChange, loadMemberInfo } from "../../utils/member/memberUtils";
 import InputText from "../../components/common/InputText";
+import Button from "../../components/common/Button";
+import { useNavigate } from "react-router-dom";
 
 
 const sessionMemberId = sessionStorage.getItem('id');
@@ -14,6 +14,7 @@ const displayNames = ['아이디', '비밀번호', '이름', '이메일'];
 const postfixes = ['를', '를', '을', '을'];
 
 export default function MemberModify() {
+	const navigate = useNavigate();
 	let [member, setMember] = useState({
 		memberId: '',
 		memberPw: '',
@@ -22,63 +23,52 @@ export default function MemberModify() {
 	})
 
 	useEffect(() => {
-		getMemberInfo(setMember, sessionMemberId);
-	}, [sessionMemberId]);
-
-	function handleInputChange(inputName) {
-		return function (e) {
-			const newMember = {
-				...member,
-				[inputName]: e.target.value,
-			};
-			setMember(newMember);
-		};
-	}
+		loadMemberInfo(sessionMemberId, setMember);
+	}, [sessionMemberId]);/**/
 
 	async function handleSubmit() {
 		try {
 			const response = await patchRequest(`/members/${ sessionMemberId }`, member);
-			console.log(response)
+			console.log(response);
 			if (response.result) {
-				alert('회원 정보 수정이 완료되었습니다.')
-				window.location.href = '/member/detail';
+				alert('회원 정보 수정이 완료되었습니다.');
+				navigate('/member/detail');
 			} else {
-				alert('회원 정보 수정에 실패했습니다. 다시 시도해주세요.')
+				alert('회원 정보 수정에 실패했습니다. 다시 시도해주세요.');
 			}
 		} catch (e) {
-			console.log(e)
+			console.log(e);
+			alert('회원 정보 수정에 실패했습니다. 다시 시도해주세요.');
 		}
 	}
 
 	function handleCancel() {
-		window.location.href = '/member/detail';
+		navigate('/member/detail');
 	}
 
-	const memberInfo = [];
+
+	const memberInputs = [];
 	for (let i = 0; i < inputNames.length; i++) {
 		const inputInfo = {
 			displayName: displayNames[i],
 			postfix: postfixes[i],
-			handleInputChange: handleInputChange(inputNames[i]),
+			handleInputChange: handleInputChange(member, setMember, inputNames[i]),
 			value: member[inputNames[i]],
 		}
 		if (inputNames[i] == 'memberId') {
 			inputInfo['readOnly'] = true;
 		}
-		memberInfo.push(
+		memberInputs.push(
 			<InputText key={ i } inputInfo={ inputInfo } />
 		);
 	}
 
-
 	return (
 		<MemberForm title={ title }>
+			{ memberInputs }
 			<div>
-				{ memberInfo }
-				<div>
-					<ButtonSubmit label={ "확인" } action={ handleSubmit } />
-					<ButtonCancel label={ "취소" } action={ handleCancel } />
-				</div>
+				<Button type={ "submit" } label={ "확인" } action={ handleSubmit } />
+				<Button type={ "button" } label={ "취소" } action={ handleCancel } />
 			</div>
 		</MemberForm>
 	);
