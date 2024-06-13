@@ -1,7 +1,7 @@
 export default function InputText({ inputInfo }) {
 	const inputName = inputInfo.inputName;
 	const displayName = inputInfo.displayName;
-	const placeholder = inputInfo.placeholder;
+	const placeholder = inputInfo.placeholder === undefined ? '' : inputInfo.placeholder + ' 입력해주세요.';
 	const handleInputChange = inputInfo.handleInputChange
 	const value = inputInfo.value;
 	const readOnly = inputInfo.readOnly;
@@ -21,7 +21,7 @@ export default function InputText({ inputInfo }) {
 			<input name={ inputName }
 						 type="text"
 						 className={ className }
-						 placeholder={ `${ placeholder } 입력해주세요.` }
+						 placeholder={ placeholder }
 						 value={ value }
 						 onChange={ handleInputChange }
 						 readOnly={ readOnly }

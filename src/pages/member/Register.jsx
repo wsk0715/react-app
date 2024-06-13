@@ -21,44 +21,46 @@ export default function Register() {
 		memberEmail: '',
 	})
 
-	async function handleSubmit() {
-		try {
-			const response = await postRequest('/members', member);
-			if (response.result) {
-				alert('회원가입 성공!');
-				navigate('/login');
-			} else {
-				alert('회원가입에 실패했습니다. 다시 시도해주세요.')
+	const actions = {
+		handleSubmit: async function () {
+			try {
+				const response = await postRequest('/members', member);
+				if (response.result) {
+					alert('회원가입 성공!');
+					navigate('/login');
+				} else {
+					alert('회원가입에 실패했습니다. 다시 시도해주세요.')
+				}
+			} catch (e) {
+				console.log(e);
 			}
-		} catch (e) {
-			console.log(e);
+		},
+		handleCancel: function () {
+			navigate('/');
 		}
 	}
 
-	function handleCancel() {
-		navigate('/');
-	}
-
-
-	const memberInputs = [];
-	for (let i = 0; i < inputNames.length; i++) {
-		const inputInfo = {
-			inputName: inputNames[i],
-			displayName: displayNames[i],
-			placeholder: displayNames[i] + postfixes[i],
-			handleInputChange: handleInputChange(member, setMember, inputNames[i]),
-		}
-		memberInputs.push(
-			<InputText key={ i } inputInfo={ inputInfo } />
-		)
-	}
 
 	return (
 		<MemberForm title={ title }>
-			{ memberInputs }
+			{
+				inputNames.map(
+					(inputName, i) => {
+						const inputInfo = {
+							inputName: inputNames[i],
+							displayName: displayNames[i],
+							placeholder: displayNames[i] + postfixes[i],
+							handleInputChange: handleInputChange(member, setMember, inputNames[i]),
+						};
+						return (
+							<InputText key={ i } inputInfo={ inputInfo } />
+						);
+					}
+				)
+			}
 			<div>
-				<Button type={ "submit" } label={ "확인" } action={ handleSubmit } />
-				<Button type={ "button" } label={ "취소" } action={ handleCancel } />
+				<Button type={ "submit" } label={ "확인" } action={ actions.handleSubmit } />
+				<Button type={ "button" } label={ "취소" } action={ actions.handleCancel } />
 			</div>
 		</MemberForm>
 	);
