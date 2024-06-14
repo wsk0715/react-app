@@ -1,9 +1,15 @@
 import { getRequest } from "../httpRequest";
 
-async function loadMemberInfo(memberId, setter) {
+async function loadMemberInfo(memberId, props) {
 	try {
 		const response = await getRequest(`/members/${ memberId }`);
-		setter(response.result);
+		const member = response.result;
+		for (let i = 0; i < props.length; i++) {
+			const propName = props[i].state.name;
+			if (member.hasOwnProperty(propName)) {
+				props[i].state.set(member[propName]);
+			}
+		}
 	} catch (e) {
 		console.log(e)
 	}

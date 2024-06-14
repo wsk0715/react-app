@@ -1,28 +1,22 @@
 import MemberForm from "../../components/member/MemberForm";
 import Button from "../../components/common/Button";
 import { deleteRequest } from "../../utils/httpRequest";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadMemberInfo } from "../../utils/member/memberUtils";
 import InputText from "../../components/common/Input";
+import Member from "../../states/Member";
 
 
-const sessionMemberId = sessionStorage.getItem('memberId');
 const title = '회원상세정보';
-const inputNames = ['memberId', 'memberPw', 'memberName', 'memberEmail'];
-const displayNames = ['아이디', '비밀번호', '이름', '이메일'];
-
+const sessionMemberId = sessionStorage.getItem('memberId');
 export default function MemberDetail() {
 	const navigate = useNavigate();
-	let [member, setMember] = useState({
-		memberId: '',
-		memberPw: '',
-		memberName: '',
-		memberEmail: '',
-	})
+	const memberState = Member();
+	const properties = memberState.properties;
 
 	useEffect(() => {
-		loadMemberInfo(sessionMemberId, setMember);
+		loadMemberInfo(sessionMemberId, properties);
 	}, [sessionMemberId]);
 
 	const actions = {
@@ -53,15 +47,14 @@ export default function MemberDetail() {
 	return (
 		<MemberForm title={ title }>
 			{
-				inputNames.map(
-					(inputName, i) => {
-						const inputInfo = {
-							displayName: displayNames[i],
-							value: member[inputNames[i]],
-							readOnly: true,
-						};
+				properties.map(
+					(ignored, index) => {
+						const prop = properties[index]
 						return (
-							<InputText key={ i } inputInfo={ inputInfo } />
+							<InputText key={ index }
+												 prop={ prop }
+												 value={ prop.state.value }
+												 readOnly={ true } />
 						);
 					}
 				)

@@ -1,41 +1,43 @@
 import MemberForm from "../../components/member/MemberForm";
 import Button from "../../components/common/Button";
-import { handleInputChange } from "../../utils/member/memberUtils";
 import InputText from "../../components/common/Input";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postRequest } from "../../utils/httpRequest";
+import Member from "../../states/Member";
 
 
 const title = '회원 로그인';
-const inputNames = ['memberId', 'memberPw'];
-const displayNames = ['아이디', '비밀번호'];
-const postfixes = ['를', '를'];
-
 export default function Login() {
 	const navigate = useNavigate();
-	let [member, setMember] = useState({
-		memberId: '',
-		memberPw: '',
-	})
+	const memberState = Member();
+	const properties = memberState.properties;
 
 	const actions = {
 		handleSubmit: async function (event) {
 			event.preventDefault();
-			const response = await postRequest('/login', member);
-			console.log(response)
-			switch (response.result) {
-				case 'FAILED_ID':
-					alert('해당하는 아이디가 없습니다.');
-					break;
-				case 'FAILED_PW':
-					alert('비밀번호가 일치하지 않습니다.')
-					break;
-				case 'SUCCESS':
-					sessionStorage.setItem('memberId', member.memberId);
-					sessionStorage.setItem('token', response.token);
-					alert('로그인 성공!');
-					window.location.href = '/';
+			try {
+				const member = memberState.getObject()
+				const response = await postRequest('/login',
+					{
+						memberId: member.memberId,
+						memberPw: member.memberPw,
+					});
+				console.log(response)
+				switch (response.result) {
+					case 'FAILED_ID':
+						alert('해당하는 아이디가 없습니다.');
+						break;
+					case 'FAILED_PW':
+						alert('비밀번호가 일치하지 않습니다.')
+						break;
+					case 'SUCCESS':
+						sessionStorage.setItem('memberId', member.memberId);
+						sessionStorage.setItem('token', response.token);
+						alert('로그인 성공!');
+						window.location.href = '/';
+				}
+			} catch (e) {
+				console.log(e)
 			}
 		},
 
@@ -49,18 +51,17 @@ export default function Login() {
 		<MemberForm title={ title }>
 			<form onSubmit={ actions.handleSubmit }>
 				{
-					inputNames.map((inputName, i) => {
-						const inputInfo = {
-							inputName: inputNames[i],
-							displayName: displayNames[i],
-							placeholder: displayNames[i] + postfixes[i],
-							handleInputChange: handleInputChange(member, setMember, inputNames[i]),
-						};
-						if (inputName === 'memberPw') {
-							inputInfo['inputType'] = 'password';
+					properties.map((ignored, index) => {
+						if (index > 1) {
+							return null;
 						}
+						const prop = properties[index];
+						const type = prop.state.name === 'memberPw' ? 'password' : 'text';
 						return (
-							<InputText key={ i } inputInfo={ inputInfo } />
+							<InputText key={ index }
+												 prop={ prop }
+												 placeholder={ true }
+												 type={ type } />
 						);
 					})
 				}

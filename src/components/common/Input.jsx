@@ -1,11 +1,6 @@
-export default function Input({ inputInfo }) {
-	const inputName = inputInfo.inputName;
-	const inputType = inputInfo.inputType === undefined ? 'text' : inputInfo.inputType;
-	const displayName = inputInfo.displayName;
-	const value = inputInfo.value;
-	const handleInputChange = inputInfo.handleInputChange;
-	const placeholder = inputInfo.placeholder === undefined ? '' : inputInfo.placeholder + ' 입력해주세요.';
-	const readOnly = inputInfo.readOnly === undefined ? false : inputInfo.readOnly;
+export default function Input({ prop, type, value, placeholder, readOnly }) {
+	placeholder = placeholder ? prop.displayName + prop.postfix + ' 입력해주세요.' : '';
+	readOnly = !!readOnly;
 
 	let className =
 		'w-full max-w-96 ' +
@@ -17,18 +12,24 @@ export default function Input({ inputInfo }) {
 
 
 	return (
-		<div className="flex mb-4">
-			<label className="content-center w-1/4" htmlFor={ inputName }>
-				{ displayName }
-			</label>
-			<input name={ inputName }
-						 type={ inputType }
-						 className={ className }
-						 value={ value }
-						 onChange={ handleInputChange }
-						 placeholder={ placeholder }
-						 readOnly={ readOnly }
-			/>
+		<div className="mb-4">
+			<div className="flex">
+				<label className="content-center w-1/4" htmlFor={ prop.state.name }>
+					{ prop.displayName }
+				</label>
+				<input name={ prop.state.name }
+							 type={ type }
+							 className={ className }
+							 value={ value }
+							 onChange={ prop.inputChangeHandler }
+							 placeholder={ placeholder }
+							 readOnly={ readOnly }
+				/>
+			</div>
+			<div className="flex">
+				<div className="w-[32%]"></div>
+				<div className="w-3/4 h-4 text-left">{ prop.message.value }</div>
+			</div>
 		</div>
 	);
 }
