@@ -45,7 +45,10 @@ export default function Register() {
 							const prop = properties[index];
 							const type = prop.state.name === 'memberPw' ? 'password' : 'text';
 							return (
-								<Input key={ index } prop={ prop } type={ type } />
+								<Input key={ index }
+											 prop={ prop }
+											 placeholder={ true }
+											 type={ type } />
 							);
 						}
 					)
