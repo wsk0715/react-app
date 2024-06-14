@@ -9,14 +9,5 @@ async function loadMemberInfo(memberId, setter) {
 	}
 }
 
-function handleInputChange(getter, setter, inputName) {
-	return function (e) {
-		const obj = {
-			...getter,
-			[inputName]: e.target.value,
-		};
-		setter(obj);
-	};
-}
 
-export { loadMemberInfo, handleInputChange };
+export { loadMemberInfo };
