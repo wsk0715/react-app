@@ -22,10 +22,20 @@ export default function MemberModify() {
 	const actions = {
 		handleSubmit: async function (event) {
 			event.preventDefault();
+			let isValid = true;
+			properties.forEach((prop) => {
+				if (prop.message.value) {
+					isValid = false;
+				}
+			});
+			if (!isValid) {
+				alert('입력 형식이 올바르지 않습니다.');
+				return;
+			}
+			
 			try {
 				const member = memberState.getObject();
 				const response = await patchRequest(`/members/${ sessionMemberId }`, member);
-				console.log(response);
 				if (response.result) {
 					alert('회원 정보 수정이 완료되었습니다.');
 					navigate('/member/detail');
@@ -50,7 +60,6 @@ export default function MemberModify() {
 					properties.map(
 						(ignored, index) => {
 							const prop = properties[index];
-							console.log(prop)
 							const value = prop.state.value;
 							const readOnly = prop.state.name === 'memberId';
 							return (

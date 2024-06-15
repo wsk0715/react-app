@@ -15,11 +15,19 @@ export default function Register() {
 	const actions = {
 		handleSubmit: async function (event) {
 			event.preventDefault();
+			let isValid = true;
+			properties.forEach((prop) => {
+				if (prop.message.value) {
+					isValid = false;
+				}
+			});
+			if (!isValid) {
+				alert('입력 형식이 올바르지 않습니다.');
+				return;
+			}
 			try {
 				const member = memberState.getObject()
-				console.log(member)
 				const response = await postRequest('/members', member);
-				console.log(response)
 				if (response.result) {
 					alert('회원가입 성공!');
 					navigate('/login');

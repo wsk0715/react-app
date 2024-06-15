@@ -15,6 +15,17 @@ export default function Login() {
 	const actions = {
 		handleSubmit: async function (event) {
 			event.preventDefault();
+			let isValid = true;
+			properties.forEach((prop) => {
+				if (prop.message.value) {
+					isValid = false;
+				}
+			});
+			if (!isValid) {
+				alert('입력 형식이 올바르지 않습니다.');
+				return;
+			}
+			
 			try {
 				const member = memberState.getObject()
 				const response = await postRequest('/login',
@@ -22,7 +33,6 @@ export default function Login() {
 						memberId: member.memberId,
 						memberPw: member.memberPw,
 					});
-				console.log(response)
 				switch (response.result) {
 					case 'FAILED_ID':
 						alert('해당하는 아이디가 없습니다.');

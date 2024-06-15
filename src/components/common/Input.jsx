@@ -22,13 +22,14 @@ export default function Input({ prop, type, value, placeholder, readOnly }) {
 							 className={ className }
 							 value={ value }
 							 onChange={ prop.inputChangeHandler }
+							 onBlur={ prop.inputBlurHandler }
 							 placeholder={ placeholder }
 							 readOnly={ readOnly }
 				/>
 			</div>
 			<div className="flex">
-				<div className="w-[32%]"></div>
-				<div className="w-3/4 h-4 text-left">{ prop.message.value }</div>
+				<div className="w-1/4"></div>
+				<div className="w-full max-w-96 h-4 mx-2 pr-2 pl-4 text-left text-red-500">{ prop.message.value }</div>
 			</div>
 		</div>
 	);
