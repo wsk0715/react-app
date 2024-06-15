@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Member from "../../states/Member";
 
 
-const title = '회원정보수정';
+const title = '회원 정보 수정';
 const sessionMemberId = sessionStorage.getItem('memberId');
 export default function MemberModify() {
 	const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function MemberModify() {
 				alert('입력 형식이 올바르지 않습니다.');
 				return;
 			}
-			
+
 			try {
 				const member = memberState.getObject();
 				const response = await patchRequest(`/members/${ sessionMemberId }`, member);

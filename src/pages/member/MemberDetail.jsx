@@ -8,7 +8,7 @@ import InputText from "../../components/common/Input";
 import Member from "../../states/Member";
 
 
-const title = '회원상세정보';
+const title = '회원 상세 정보';
 const sessionMemberId = sessionStorage.getItem('memberId');
 export default function MemberDetail() {
 	const navigate = useNavigate();

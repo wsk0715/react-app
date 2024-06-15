@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Member from "../../states/Member";
 
 
-const title = '회원가입';
+const title = '회원 가입';
 export default function Register() {
 	const navigate = useNavigate();
 	const memberState = Member();
