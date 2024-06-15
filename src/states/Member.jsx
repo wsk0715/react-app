@@ -45,6 +45,7 @@ function Property(name, displayName, postfix, postfix2, maxLength) {
 		message,
 		displayName,
 		postfix,
+		postfix2,
 		maxLength,
 		inputChangeHandler,
 		inputBlurHandler,

@@ -27,7 +27,6 @@ export default function MemberDetail() {
 			if (window.confirm('정말 탈퇴하시겠습니까?')) {
 				try {
 					const response = await deleteRequest(`/members/${ sessionMemberId }`);
-					console.log(response);
 					if (response.result) {
 						sessionStorage.clear();
 						alert('회원 탈퇴가 완료되었습니다.');
