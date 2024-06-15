@@ -1,4 +1,4 @@
-export default function Input({ prop, type, value, placeholder, readOnly }) {
+export default function Input({ prop, type, value, onBlur, placeholder, readOnly }) {
 	placeholder = placeholder ? prop.displayName + prop.postfix + ' 입력해주세요.' : '';
 	readOnly = !!readOnly;
 
@@ -22,7 +22,7 @@ export default function Input({ prop, type, value, placeholder, readOnly }) {
 							 className={ className }
 							 value={ value }
 							 onChange={ prop.inputChangeHandler }
-							 onBlur={ prop.inputBlurHandler }
+							 onBlur={ onBlur ? prop.inputBlurHandler : null }
 							 placeholder={ placeholder }
 							 readOnly={ readOnly }
 				/>
