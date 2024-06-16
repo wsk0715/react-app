@@ -4,6 +4,7 @@ import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { useNavigate } from "react-router-dom";
 import Member from "../../states/Member";
+import { isValid } from "../../utils/member/memberUtils";
 
 
 const title = '회원 가입';
@@ -15,13 +16,7 @@ export default function Register() {
 	const actions = {
 		handleSubmit: async function (event) {
 			event.preventDefault();
-			let isValid = true;
-			properties.forEach((prop) => {
-				if (prop.message.value) {
-					isValid = false;
-				}
-			});
-			if (!isValid) {
+			if (!isValid(properties)) {
 				alert('입력 형식이 올바르지 않습니다.');
 				return;
 			}
@@ -36,6 +31,7 @@ export default function Register() {
 				}
 			} catch (e) {
 				console.log(e);
+				alert('에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
 			}
 		},
 		handleCancel: function () {

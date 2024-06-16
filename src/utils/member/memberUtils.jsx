@@ -15,5 +15,14 @@ async function loadMemberInfo(memberId, props) {
 	}
 }
 
+function isValid(properties) {
+	let isValid = true;
+	properties.forEach((prop) => {
+		if (prop.message.value) {
+			isValid = false;
+		}
+	});
+	return isValid;
+}
 
-export { loadMemberInfo };
+export { loadMemberInfo, isValid };

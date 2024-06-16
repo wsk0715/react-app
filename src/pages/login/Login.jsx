@@ -4,6 +4,7 @@ import InputText from "../../components/common/Input";
 import { useNavigate } from "react-router-dom";
 import { postRequest } from "../../utils/httpRequest";
 import Member from "../../states/Member";
+import { isValid } from "../../utils/member/memberUtils";
 
 
 const title = '회원 로그인';
@@ -15,17 +16,10 @@ export default function Login() {
 	const actions = {
 		handleSubmit: async function (event) {
 			event.preventDefault();
-			let isValid = true;
-			properties.forEach((prop) => {
-				if (prop.message.value) {
-					isValid = false;
-				}
-			});
-			if (!isValid) {
+			if (!isValid(properties)) {
 				alert('입력 형식이 올바르지 않습니다.');
 				return;
 			}
-			
 			try {
 				const member = memberState.getObject()
 				const response = await postRequest('/login',
@@ -48,6 +42,7 @@ export default function Login() {
 				}
 			} catch (e) {
 				console.log(e)
+				alert('에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
 			}
 		},
 

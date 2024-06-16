@@ -1,7 +1,7 @@
 import MemberForm from "../../components/member/MemberForm";
 import { patchRequest } from "../../utils/httpRequest";
 import { useEffect } from "react";
-import { loadMemberInfo } from "../../utils/member/memberUtils";
+import { isValid, loadMemberInfo } from "../../utils/member/memberUtils";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { useNavigate } from "react-router-dom";
@@ -22,17 +22,10 @@ export default function MemberModify() {
 	const actions = {
 		handleSubmit: async function (event) {
 			event.preventDefault();
-			let isValid = true;
-			properties.forEach((prop) => {
-				if (prop.message.value) {
-					isValid = false;
-				}
-			});
-			if (!isValid) {
+			if (!isValid(properties)) {
 				alert('입력 형식이 올바르지 않습니다.');
 				return;
 			}
-
 			try {
 				const member = memberState.getObject();
 				const response = await patchRequest(`/members/${ sessionMemberId }`, member);
@@ -44,7 +37,7 @@ export default function MemberModify() {
 				}
 			} catch (e) {
 				console.log(e);
-				alert('회원 정보 수정에 실패했습니다. 다시 시도해주세요.');
+				alert('에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
 			}
 		},
 		handleCancel: function () {
