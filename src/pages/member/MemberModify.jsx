@@ -1,5 +1,5 @@
 import MemberForm from "../../components/member/MemberForm";
-import { patchRequest } from "../../utils/httpRequest";
+import { patchRequest } from "../../utils/ajax/httpRequest";
 import { useEffect } from "react";
 import { isValid, loadMemberInfo } from "../../utils/member/memberUtils";
 import Input from "../../components/common/Input";

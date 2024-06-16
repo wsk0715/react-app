@@ -2,7 +2,7 @@ import MemberForm from "../../components/member/MemberForm";
 import Button from "../../components/common/Button";
 import InputText from "../../components/common/Input";
 import { useNavigate } from "react-router-dom";
-import { postRequest } from "../../utils/httpRequest";
+import { postRequest } from "../../utils/ajax/httpRequest";
 import Member from "../../states/Member";
 import { isValid } from "../../utils/member/memberUtils";
 

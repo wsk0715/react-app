@@ -1,5 +1,5 @@
 import MemberForm from "../../components/member/MemberForm";
-import { postRequest } from "../../utils/httpRequest";
+import { postRequest } from "../../utils/ajax/httpRequest";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { useNavigate } from "react-router-dom";

@@ -1,4 +1,4 @@
-import { getRequest } from "../httpRequest";
+import { getRequest } from "../ajax/httpRequest";
 
 async function loadMemberInfo(memberId, props) {
 	try {

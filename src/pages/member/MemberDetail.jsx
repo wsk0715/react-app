@@ -1,6 +1,6 @@
 import MemberForm from "../../components/member/MemberForm";
 import Button from "../../components/common/Button";
-import { deleteRequest } from "../../utils/httpRequest";
+import { deleteRequest } from "../../utils/ajax/httpRequest";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadMemberInfo } from "../../utils/member/memberUtils";
