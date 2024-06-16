@@ -1,51 +1,24 @@
 import api from './axiosApi';
 
-export const getRequest = async (url, params = {}) => {
+const request = async (url, method, data = {}, params = {}) => {
 	try {
-		const response = await api.get(url, { params });
+		const config = {
+			url,
+			method,
+			...(method === 'get' ? { params } : { data }),
+		};
+		const response = await api(config);
 		return response.data;
 	} catch (error) {
-		console.error('GET 요청 실패:', error);
+		console.log(`${ method.toUpperCase() } 요청 실패: `, error);
 		throw error;
 	}
-};
+}
 
-export const postRequest = async (url, data) => {
-	try {
-		const response = await api.post(url, data);
-		return response.data;
-	} catch (error) {
-		console.error('POST 요청 실패:', error);
-		throw error;
-	}
-};
+const getRequest = (url, params) => request(url, 'get', {}, params);
+const postRequest = (url, data) => request(url, 'post', data);
+const putRequest = (url, data) => request(url, 'put', data);
+const patchRequest = (url, data) => request(url, 'patch', data);
+const deleteRequest = (url) => request(url, 'delete');
 
-export const putRequest = async (url, data) => {
-	try {
-		const response = await api.put(url, data);
-		return response.data;
-	} catch (error) {
-		console.error('PUT 요청 실패:', error);
-		throw error;
-	}
-};
-
-export const patchRequest = async (url, data) => {
-	try {
-		const response = await api.patch(url, data);
-		return response.data;
-	} catch (error) {
-		console.error('PATCH 요청 실패:', error);
-		throw error;
-	}
-};
-
-export const deleteRequest = async (url) => {
-	try {
-		const response = await api.delete(url);
-		return response.data;
-	} catch (error) {
-		console.error('DELETE 요청 실패:', error);
-		throw error;
-	}
-};
+export { getRequest, postRequest, putRequest, patchRequest, deleteRequest };
