@@ -55,6 +55,7 @@ export default function Register() {
 							return (
 								<Input key={ index }
 											 prop={ prop }
+											 onBlur={ true }
 											 placeholder={ true }
 											 type={ type } />
 							);

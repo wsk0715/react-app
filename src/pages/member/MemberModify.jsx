@@ -66,6 +66,7 @@ export default function MemberModify() {
 								<Input key={ index }
 											 prop={ prop }
 											 value={ value }
+											 onBlur={ true }
 											 placeholder={ true }
 											 readOnly={ readOnly } />
 							);

@@ -53,7 +53,6 @@ export default function MemberDetail() {
 							<InputText key={ index }
 												 prop={ prop }
 												 value={ prop.state.value }
-												 onblur={ false }
 												 readOnly={ true } />
 						);
 					}
