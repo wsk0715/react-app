@@ -20,10 +20,10 @@ export default function MemberDetail() {
 	}, [sessionMemberId]);
 
 	const actions = {
-		handleModify: function () {
+		handleModify: () => {
 			navigate('/member/modify');
 		},
-		handleDelete: async function () {
+		handleDelete: async () => {
 			if (window.confirm('정말 탈퇴하시겠습니까?')) {
 				try {
 					const response = await deleteRequest(`/members/${ sessionMemberId }`);

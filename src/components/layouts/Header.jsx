@@ -8,7 +8,7 @@ export default function LayoutHeader() {
 		setIsLoggedIn(sessionStorage.getItem('token') !== null)
 	}, []);
 
-	async function handleLogout() {
+	const handleLogout = async () => {
 		if (window.confirm('로그아웃 하시겠습니까?')) {
 			sessionStorage.clear();
 			setIsLoggedIn(false);

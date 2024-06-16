@@ -14,7 +14,7 @@ export default function Register() {
 	const properties = memberState.properties;
 
 	const actions = {
-		handleSubmit: async function (event) {
+		handleSubmit: async (event) => {
 			event.preventDefault();
 			if (!isValid(properties)) {
 				alert('입력 형식이 올바르지 않습니다.');
@@ -34,7 +34,7 @@ export default function Register() {
 				alert('에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
 			}
 		},
-		handleCancel: function () {
+		handleCancel: () => {
 			navigate('/');
 		}
 	}

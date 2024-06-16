@@ -14,7 +14,7 @@ export default function Login() {
 	const properties = memberState.properties;
 
 	const actions = {
-		handleSubmit: async function (event) {
+		handleSubmit: async (event) => {
 			event.preventDefault();
 			if (!isValid(properties)) {
 				alert('입력 형식이 올바르지 않습니다.');
@@ -46,7 +46,7 @@ export default function Login() {
 			}
 		},
 
-		handleCancel: function () {
+		handleCancel: () => {
 			navigate('/');
 		}
 	}
