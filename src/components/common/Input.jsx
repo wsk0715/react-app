@@ -1,5 +1,5 @@
 export default function Input({ prop, type, value, onBlur, placeholder, readOnly }) {
-	placeholder = placeholder ? prop.displayName + prop.postfix + ' 입력해주세요.' : '';
+	placeholder = placeholder ? prop.displayName + prop.postfixObject + ' 입력해주세요.' : '';
 	readOnly = !!readOnly;
 
 	let className =
@@ -21,8 +21,8 @@ export default function Input({ prop, type, value, onBlur, placeholder, readOnly
 							 type={ type }
 							 className={ className }
 							 value={ value }
-							 onChange={ prop.inputChangeHandler }
-							 onBlur={ onBlur ? prop.inputBlurHandler : null }
+							 onChange={ prop.actions.inputChangeHandler }
+							 onBlur={ onBlur ? prop.actions.inputBlurHandler : null }
 							 placeholder={ placeholder }
 							 readOnly={ readOnly }
 				/>

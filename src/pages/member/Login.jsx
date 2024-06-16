@@ -3,15 +3,17 @@ import Button from "../../components/common/Button";
 import InputText from "../../components/common/Input";
 import { useNavigate } from "react-router-dom";
 import { postRequest } from "../../utils/ajax/httpRequest";
-import Member from "../../states/Member";
+import Member from "../../utils/propObject/PropObject";
 import { isValid } from "../../utils/member/memberUtils";
+import { memberProperties } from "../../utils/properties/properties";
 
 
 const title = '회원 로그인';
+const needProperties = ['memberId', 'memberPw'];
 export default function Login() {
 	const navigate = useNavigate();
-	const memberState = Member();
-	const properties = memberState.properties;
+	const memberState = Member(memberProperties, needProperties);
+	const properties = memberState.props;
 
 	const actions = {
 		handleSubmit: async (event) => {
@@ -21,12 +23,8 @@ export default function Login() {
 				return;
 			}
 			try {
-				const member = memberState.getObject()
-				const response = await postRequest('/login',
-					{
-						memberId: member.memberId,
-						memberPw: member.memberPw,
-					});
+				const member = memberState.getDataObject()
+				const response = await postRequest('/login', member);
 				switch (response.result) {
 					case 'FAILED_ID':
 						alert('해당하는 아이디가 없습니다.');
@@ -57,9 +55,6 @@ export default function Login() {
 			<form onSubmit={ actions.handleSubmit }>
 				{
 					properties.map((ignored, index) => {
-						if (index > 1) {
-							return null;
-						}
 						const prop = properties[index];
 						const type = prop.state.name === 'memberPw' ? 'password' : 'text';
 						return (

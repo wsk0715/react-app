@@ -3,15 +3,17 @@ import { postRequest } from "../../utils/ajax/httpRequest";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { useNavigate } from "react-router-dom";
-import Member from "../../states/Member";
+import Member from "../../utils/propObject/PropObject";
 import { isValid } from "../../utils/member/memberUtils";
+import { memberProperties } from "../../utils/properties/properties";
 
 
 const title = '회원 가입';
+const needProperties = ['memberId', 'memberPw', 'memberName', 'memberEmail'];
 export default function Register() {
 	const navigate = useNavigate();
-	const memberState = Member();
-	const properties = memberState.properties;
+	const memberState = Member(memberProperties, needProperties);
+	const properties = memberState.props;
 
 	const actions = {
 		handleSubmit: async (event) => {
@@ -21,7 +23,7 @@ export default function Register() {
 				return;
 			}
 			try {
-				const member = memberState.getObject()
+				const member = memberState.getDataObject()
 				const response = await postRequest('/members', member);
 				if (response.result) {
 					alert('회원가입 성공!');

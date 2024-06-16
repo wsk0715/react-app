@@ -5,15 +5,17 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadMemberInfo } from "../../utils/member/memberUtils";
 import InputText from "../../components/common/Input";
-import Member from "../../states/Member";
+import Member from "../../utils/propObject/PropObject";
+import { memberProperties } from "../../utils/properties/properties";
 
 
 const title = '회원 상세 정보';
+const needProperties = ['memberId', 'memberPw', 'memberName', 'memberEmail'];
 const sessionMemberId = sessionStorage.getItem('memberId');
 export default function MemberDetail() {
 	const navigate = useNavigate();
-	const memberState = Member();
-	const properties = memberState.properties;
+	const memberState = Member(memberProperties, needProperties);
+	const properties = memberState.props;
 
 	useEffect(() => {
 		loadMemberInfo(sessionMemberId, properties);

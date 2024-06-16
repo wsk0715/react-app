@@ -5,15 +5,17 @@ import { isValid, loadMemberInfo } from "../../utils/member/memberUtils";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { useNavigate } from "react-router-dom";
-import Member from "../../states/Member";
+import Member from "../../utils/propObject/PropObject";
+import { memberProperties } from "../../utils/properties/properties";
 
 
 const title = '회원 정보 수정';
+const needProperties = ['memberId', 'memberPw', 'memberName', 'memberEmail'];
 const sessionMemberId = sessionStorage.getItem('memberId');
 export default function MemberModify() {
 	const navigate = useNavigate();
-	const memberState = Member();
-	const properties = memberState.properties;
+	const memberState = Member(memberProperties, needProperties);
+	const properties = memberState.props;
 
 	useEffect(() => {
 		loadMemberInfo(sessionMemberId, properties);
@@ -27,7 +29,7 @@ export default function MemberModify() {
 				return;
 			}
 			try {
-				const member = memberState.getObject();
+				const member = memberState.getDataObject();
 				const response = await patchRequest(`/members/${ sessionMemberId }`, member);
 				if (response.result) {
 					alert('회원 정보 수정이 완료되었습니다.');
