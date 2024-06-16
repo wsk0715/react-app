@@ -2,7 +2,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import LayoutDefault from "../components/layouts/Default";
 import Home from "../pages/home/Index";
 import { MemberDetail, MemberModify, Register } from "../pages/member/Index";
-import Login from "../pages/login/Login";
+import Login from "../pages/member/Login";
 
 export default createBrowserRouter([
 	{
