@@ -6,11 +6,13 @@ import { postRequest } from "../../utils/ajax/httpRequest";
 import Member from "../../utils/propObject/PropObject";
 import { isValid } from "../../utils/member/memberUtils";
 import { memberProperties } from "../../utils/properties/properties";
+import useAuthStore from "../../store/authStore";
 
 
 const title = '회원 로그인';
 const needProperties = ['memberId', 'memberPw'];
 export default function Login() {
+	const { login } = useAuthStore();
 	const navigate = useNavigate();
 	const memberState = Member(memberProperties, needProperties);
 	const properties = memberState.props;
@@ -33,10 +35,11 @@ export default function Login() {
 						alert('비밀번호가 일치하지 않습니다.')
 						break;
 					case 'SUCCESS':
-						sessionStorage.setItem('memberId', member.memberId);
-						sessionStorage.setItem('token', response.token);
+						const id = member.memberId;
+						const token = response.token;
 						alert('로그인 성공!');
-						window.location.href = '/';
+						login(id, token);
+						navigate('/');
 				}
 			} catch (e) {
 				console.log(e)

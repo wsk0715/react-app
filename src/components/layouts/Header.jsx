@@ -1,20 +1,22 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import useAuthStore from "../../store/authStore";
+import { useEffect } from "react";
 
 export default function LayoutHeader() {
-	let [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('token') !== null);
-
-	useEffect(() => {
-		setIsLoggedIn(sessionStorage.getItem('token') !== null)
-	}, []);
+	const { isLoggedIn, logout } = useAuthStore((state) => ({
+		isLoggedIn: state.isLoggedIn,
+		logout: state.logout,
+	}));
 
 	const handleLogout = async () => {
 		if (window.confirm('로그아웃 하시겠습니까?')) {
-			sessionStorage.clear();
-			setIsLoggedIn(false);
+			logout();
 			alert('로그아웃 되었습니다.');
 		}
 	}
+
+	useEffect(() => {
+	}, [isLoggedIn]);
 
 
 	return (
@@ -28,7 +30,7 @@ export default function LayoutHeader() {
 			<nav>
 				<ul className="flex space-x-8">
 					{
-						sessionStorage.getItem('token') === null
+						!isLoggedIn
 							?
 							<>
 								<li>
